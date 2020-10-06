@@ -40,7 +40,8 @@ __global__ void ram(int *ptrs,int *result,int *data,int num)
 
 int main(int argc,char **argv)
 {
-	int n=atoi(argv[1]);
+	//int n=atoi(argv[1]);
+	int n=1;
 	long int cached_array_size=size_mb*n;
 	long int large_array_size=size_mb*1024;
 
@@ -51,12 +52,12 @@ int main(int argc,char **argv)
 	h_result=(int*)malloc(large_array_size);
 	h_data=(int*)malloc(cached_array_size);
 
-	for(int i=0;i<cached_array_size;i++)
+	for(int i=0;i<(cached_array_size/sizeof(int));i++)
 	{
 		h_data[i]=i;
 	}
 
-	for(int i=0;i<large_array_size;i++)
+	for(int i=0;i<(large_array_size/sizeof(int));i++)
 	{
 		h_result[i]=0;
 		h_ptrs[i]=rand()%cached_array_size;
